@@ -1,0 +1,6 @@
+.vscode/
+*.sqlite3
+staticfiles/
+static/
+__pycache__
+todolistApp/__pycache__

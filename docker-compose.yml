@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  postgre-database:  # database definition
+    ports:
+      - "5433:5432" # expose database port outside of the conatiner
+    image: postgres:16.2
+    environment:
+      - POSTGRES_DB=todo_list_app_db
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=admin
+  django-webapp:
+    container_name: django_todo_list_app
+    ports:
+      - "8080:8000" # expose ports to be available in docker host network (localhost)
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000 # RUN server listen to any Ip address with port 8000
+    volumes:
+      - .:/code/
+    depends_on:
+      - postgre-database # instantiate djangoWeApp once db is ready
+
+
