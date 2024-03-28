@@ -7,8 +7,9 @@ WORKDIR /code
 # Copy requirements.txt  with list of dependencies into container
 COPY requirements.txt /code/
 
-# update repository list
+# Update repository list
 RUN apk update
+
 # install required dependencies inside alpine based container
 RUN apk add postgresql-dev gcc python3-dev musl-dev
 
