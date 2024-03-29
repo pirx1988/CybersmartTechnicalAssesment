@@ -1,7 +1,27 @@
 <h3>Task Form</h3>
-<a href = "{% url 'tasks' %}">Go back</a>
+<a href="{% url 'tasks' %}">Go back</a>
 <form method="POST" action="">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value="Submit">
 </form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#id_location').change(function () {
+            var selectedLocation = $(this).val();
+            if (selectedLocation) {
+                alert('Selected Location: ' + selectedLocation);
+                $('body').css('background-color', 'blue');
+                // Perform actions based on the selected value
+                console.log("Selected value:", selectedLocation);
+                // You can make an AJAX request here to send the selected value to Django
+            } else {
+                // Handle case when no value is selected
+                console.log("No location selected");
+                $('body').css('background-color', 'white');
+
+            }
+        });
+    });
+</script>
