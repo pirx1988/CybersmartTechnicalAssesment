@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 class LocationChoices(models.TextChoices):
     LONDON = 'london', 'London'
     BERLIN = 'paris', 'Berlin'
-    PARIS = 'wroclaw', 'Wroclaw'
+    PARIS = 'paris', 'Paris',
+    DUBAI = 'dubai', 'Dubai',
+    STOCKHOLM = 'stockholm', 'Stockholm'
 
 class Task(models.Model):
     # delete all tasks once user deleted, bland=True - will be changed in production system
