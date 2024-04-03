@@ -20,8 +20,6 @@ docker-compose exec django-webapp python manage.py createsuperuser
 You can create furhter users from admin panel http://localhost:8080/admin/auth/user/add/.
 (in order to test it out if tasks are correctly assigned to specific users)
 
-Restart docker container 
-
 ## Logic applied for background colors calculation:
 ### Temperature ranges for determination of cold, warm or hot weather
 ```
