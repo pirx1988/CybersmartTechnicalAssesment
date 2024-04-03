@@ -13,12 +13,14 @@ Run migration scripts required for tables creation based on task model:
 docker-compose exec django-webapp python manage.py migrate
 ```
 
-Create super with admion rights from command line (django-webapp container must be working) which will be required in logging in to the application :
+Create user with admion rights from command line (django-webapp container must be working) which will be required in logging in to the application :
 ```
 docker-compose exec django-webapp python manage.py createsuperuser
 ```
 You can create furhter users from admin panel http://localhost:8080/admin/auth/user/add/.
 (in order to test it out if tasks are correctly assigned to specific users)
+
+Restart docker container 
 
 ## Logic applied for background colors calculation:
 ### Temperature ranges for determination of cold, warm or hot weather
