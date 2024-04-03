@@ -3,6 +3,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 import requests
+import logging
 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,6 +11,9 @@ from .models import Task
 from weatherMapApi.utils import fetchWeather, calcBackgroundColor
 
 DEFAULT_BACKGROUND_COLOR = '#FFFFFF'  # Example default color (white)
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 class CustomLoginView(LoginView):
@@ -42,12 +46,17 @@ class TaskList(LoginRequiredMixin, ListView):
             except requests.HTTPError as e:
                 # Handle HTTPError (response status code is not 200)
                 # provide a default value for background color
+                logger.error(
+                    f"HTTPError occurred  while fetching weather data from weatherMap Api for task with id {task.id}")
                 task.background_color = DEFAULT_BACKGROUND_COLOR
             except Exception as e:
                 # Handle other exceptions (e.g., network errors)
                 # provide a default value for background color
+                logger.error(
+                    f"An error occurred while fetching weather data from weatherMap Api for task with id: {task.id}")
                 task.background_color = DEFAULT_BACKGROUND_COLOR
         return queryset
+
 
 class TaskDetail(DetailView):
     model = Task
