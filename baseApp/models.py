@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class LocationChoices(models.TextChoices):
     LONDON = 'london', 'London'
-    BERLIN = 'paris', 'Berlin'
+    BERLIN = 'berlin', 'Berlin'
     PARIS = 'paris', 'Paris',
     DUBAI = 'dubai', 'Dubai',
     STOCKHOLM = 'stockholm', 'Stockholm'
