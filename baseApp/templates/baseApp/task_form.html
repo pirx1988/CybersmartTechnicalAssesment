@@ -27,7 +27,7 @@
             const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
             // You can make an AJAX response here to send the selected value to Django
             $.ajax({
-                url: 'http://localhost:8080/api/weather',
+                url: `http://localhost:${window.location.port}/api/weather`,
                 type: 'POST',
                 headers: {
                     'X-CSRFToken': csrfToken // Include the CSRF token in the headers

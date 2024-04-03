@@ -10,7 +10,7 @@ docker-compose up
 ```
 Run migration scripts required for tables creation based on task model:
 ```
-docker-compose exec django-webapp  python manage.py migrate
+docker-compose exec django-webapp python manage.py migrate
 ```
 
 Create super with admion rights from command line (django-webapp container must be working) which will be required in logging in to the application :
