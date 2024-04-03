@@ -21,17 +21,17 @@ You can create furhter users from admin panel http://localhost:8080/admin/auth/u
 (in order to test it out if tasks are correctly assigned to specific users)
 
 ## Logic applied for background colors calculation:
+### Temperature ranges for determination of cold, warm or hot weather
 ```
 cold: below 10°C (50°F)
 warm: 10°C (50°F) to 25°C (77°F)
 hot: above 25°C (77°F)
 ```
-
+### Condition for determination of background color in form: condition => Background color
 ```
 cold or rain => Blue
 warm or cloudy => Yellow-Orange
 hot or sunny => Red
-
-Other => White
+other => White
 ```
 
