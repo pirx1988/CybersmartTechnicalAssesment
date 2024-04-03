@@ -5,23 +5,59 @@
     {{form.as_p}}
     <input type="submit" value="Submit">
 </form>
+<div id="temperature-display"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#id_location').change(function () {
-            var selectedLocation = $(this).val();
-            if (selectedLocation) {
-                alert('Selected Location: ' + selectedLocation);
-                $('body').css('background-color', 'blue');
-                // Perform actions based on the selected value
-                console.log("Selected value:", selectedLocation);
-                // You can make an AJAX request here to send the selected value to Django
-            } else {
-                // Handle case when no value is selected
-                console.log("No location selected");
-                $('body').css('background-color', 'white');
+        // # Clear = sunny
+        // # Clouds = cloudy
+        // # Rain = rain
+        let selectedLocation = $('#id_location').val();
+        updateBackgdoundAndCurrentTemp(selectedLocation)
 
-            }
+        $('#id_location').change(function () {
+            let selectedLocation = $(this).val();
+            updateBackgdoundAndCurrentTemp(selectedLocation)
         });
     });
+
+    function updateBackgdoundAndCurrentTemp(selectedLocation) {
+        if (selectedLocation) {
+            // get csrf token present in form in order to prevent against CSRF attack
+            const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+            // You can make an AJAX response here to send the selected value to Django
+            $.ajax({
+                url: 'http://localhost:8080/api/weather',
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken // Include the CSRF token in the headers
+                },
+                contentType: 'application/json',
+                data: JSON.stringify({ location: selectedLocation }), // Send location data in JSON format
+                success: function (response) {
+                    $('body').css('background-color', response.background_color);
+                    updateTemperatureDisplay(response.temp)
+                },
+                error: function (xhr, status, error) {
+                    // Handle errors
+                    console.error('Error:', error);
+                }
+            });
+        } else {
+            // Handle case when no value is selected
+            $('body').css('background-color', 'white');
+            const temperatureDisplay = $('#temperature-display');
+            // Set empty string when nocation is not set
+            temperatureDisplay.text("");
+        }
+    }
+
+    function updateTemperatureDisplay(temperature) {
+        // Get the temperature display div
+        const temperatureDisplay = $('#temperature-display');
+        // Update its content with the temperature value
+        // Rounds down to the nearest integer
+        temperatureDisplay.text(`Current temperature: ${Math.floor(temperature)} °C`);
+    }
+
 </script>

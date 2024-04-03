@@ -15,11 +15,15 @@
 <table>
 <tr>
     <th>Item</th>
+    <th>Weather color</th>
     <th></th>
     <th></th>
     {% for task in tasks %}
     <tr>
         <td>{{task.title}}</td>
+        <td class="color-column" style="background-color: {{task.background_color}}">
+            <div class="color-box"></div>
+        </td>
         <td><a href="{% url 'task' task.id %}">View</a></td>
         <td><a href="{% url 'task-update' task.id %}">Edit</a></td>
         <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
